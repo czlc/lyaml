@@ -76,94 +76,20 @@ local function print_table(root)
 	ret = ret .. "\n}\n"
 	print(ret)
 end
-local l = [[
----
-type:item
-data:
--   id          : 1
-    name        : shortsword
-    price       : 28
-    iron        : 2
 
----
-type:buildings
-iron_mine_grade: &grade_1
-    -   level       : 1
-        cost        : 0
-        boost       : 10
-data:
--   id          : 1
-    name        : iron_mine
-    grade       : *grade_1
----
-type: furniture
-]]
 local src = [[
 ---
-type: items
-data:
-  剑:    
-  - level: 1
-    price: 28
-    resources:
-      铁: 2
+loot:
+- - 1
+  - 3
+- - 2
+  - 4
+...
 
-  - level: 2
-    price: 32
-    resources:
-      铁: 2
-      木: 2
-    components:
-      剑.1.绿: 2
 
----
-type: buildings
-铁矿级别: &iron_mine_grade
-- level: 2
-  cost: 30
-  boost: 10
-
-- level: 3
-  cost: 30
-  boost: 10
-
-data:
-- name: 铁矿
-  rate_per_hour: 80
-  grade: *iron_mine_grade
-
----
-type: furniture
-道具容器级别: &的
-- level: 2
-  cost: 20
-  storage: 8
-
-- level: 3
-  cost: 20
-  storage: 10
-
-资源容器级别: &resource_storage_grade
-- level: 2
-  cost: 20
-  storage_capacity: 8
-  refill_capacity: 10
-
-- level: 3
-  cost: 20
-  storage_capacity: 10
-  refill_capacity: 12
-
-data:
-- name: 木柜
-  storage: 8
-  grade: *item_storage_grade
-  
-- name: 铁桶
-  storage_capacity: 8
-  refill_capacity: 10
-  grade: *resource_storage_grade
 ]]
 
 local lyaml = require "lyaml"
 print_table(lyaml.load(src,{ all = true }) )
+
+--print(lyaml.dump({ { loot = {{1,3}, {2, 4}} } }))
